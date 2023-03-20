@@ -1,31 +1,31 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+require('flatpickr/dist/themes/material_green.css');
 import Notiflix from 'notiflix';
 
-Notiflix.Notify.init({
-  cssAnimationStyle: 'from-right',
-  position: 'center-top',
-});
-
 const inputEl = document.querySelector('#datetime-picker');
-const timerEl = document.querySelector('.timer');
 const btnStartEl = document.querySelector('button');
-
+const timerEl = document.querySelector('.timer');
 const daysEl = document.querySelector('[data-days]');
 const hoursEl = document.querySelector('[data-hours]');
 const minutesEl = document.querySelector('[data-minutes]');
 const secondsEl = document.querySelector('[data-seconds]');
 
-btnStartEl.setAttribute('disabled', 'true');
+const ColorLikeCalendar = '#1bbc9b';
+
+btnStartEl.setAttribute('disabled', '');
 
 btnStartEl.addEventListener('click', onStart);
 
 let inputDate;
 
 function onStart() {
-  timerEl.style.color = 'teal';
+  options.clickOpens = false;
+  flatpickr(inputEl, options);
+  btnStartEl.setAttribute('disabled', '');
+  timerEl.style.color = ColorLikeCalendar;
 
-  timerId = setInterval(() => {
+  const timerId = setInterval(() => {
     const currentTime = new Date();
     const deltaTime = inputDate - currentTime;
     const { days, hours, minutes, seconds } = convertMs(deltaTime);
@@ -41,8 +41,9 @@ function onStart() {
       Number(hours) <= 0 &&
       Number(days) <= 0
     ) {
-      timerEl.style.color = 'red';
       clearInterval(timerId);
+      timerEl.style.color = 'red';
+      btnStartEl.style.backgroundColor = '#fff';
     }
   }, 1000);
 }
@@ -82,17 +83,24 @@ const options = {
     inputDate = selectedDates[0];
     const currentDate = options.defaultDate;
     const result = inputDate - currentDate;
+
     if (result <= 0) {
-      Notiflix.Notify.failure('Please choose a date in the future');
-      //   alert('Please choose a date in the future');
-      btnStartEl.setAttribute('disabled', '');
+      Notiflix.Notify.warning('Please choose a date in the future');
     } else {
       btnStartEl.removeAttribute('disabled');
+      btnStartEl.style.backgroundColor = ColorLikeCalendar;
     }
   },
 };
 
 flatpickr(inputEl, options);
+
+// Notiflix styles
+
+Notiflix.Notify.init({
+  cssAnimationStyle: 'from-right',
+  position: 'center-top',
+});
 
 // add styles
 

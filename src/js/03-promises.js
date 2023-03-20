@@ -1,10 +1,5 @@
 import Notiflix from 'notiflix';
 
-Notiflix.Notify.init({
-  useIcon: false,
-  fontSize: '15px',
-});
-
 const formEl = document.querySelector('.form');
 const delayEl = document.querySelector('input[name=delay]');
 const stepEl = document.querySelector('input[name=step]');
@@ -49,50 +44,9 @@ function createPromise(position, delay) {
   return promise;
 }
 
-// ===================================================
+// Notiflix styles
 
-// const btnSubmitEl = document.querySelector('button');
-
-// let position = 5;
-// let delay = 3000;
-// let step = 500;
-
-// for (let index = 1; index <= position; index++) {
-//   createPromise(index, delay)
-//     .then(({ position, delay }) => {
-//       console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-//     })
-//     .catch(({ position, delay }) => {
-//       console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-//     });
-
-//   delay += step;
-// }
-
-// btnSubmitEl.addEventListener('submit', createPromise);
-
-// formEl.addEventListener('input', onValue);
-
-// formEl.addEventListener('click', onValue);
-
-// function onColor() {
-//   // evt.preventDefault();
-//   document.body.style.backgroundColor = 'teal';
-//   console.log('onColor');
-
-//   // console.log(evt.target.value);
-// }
-
-// function onValue(evt) {
-//   evt.preventDefault();
-//   console.log(Number(delayEl.value));
-//   console.log(stepEl.value);
-//   console.log(amountEl.value);
-
-//   onColor();
-//   // console.log('Hello');
-// }
-
-// // formEl.addEventListener('submit', onValue);
-
-// ====================================================
+Notiflix.Notify.init({
+  useIcon: false,
+  fontSize: '15px',
+});
